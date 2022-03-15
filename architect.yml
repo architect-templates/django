@@ -1,7 +1,52 @@
 name: django
-description: |
-  Example component that includes a django frontend and a wsgi backend.
-homepage: https://github.com/architect-templates/django
-keywords:
-  - django
-  - wsgi
+parameters:
+  django_secret_key:
+    default: warning-override-for-production
+  postgres_password:
+    default: warning-override-for-production
+
+services:
+  db:
+    image: postgres
+    interfaces:
+      main: 5432
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${{ parameters.postgres_password }}
+  web:
+    build:
+      context: .
+    command: |
+      sh -c '
+        python manage.py collectstatic --noinput
+        python manage.py migrate --noinput
+        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2 --static-map /static=/code/static
+      '
+    interfaces:
+      main: 8000
+    environment:
+      DEBUG: 'False'
+      ALLOWED_HOST: .${{ ingresses.web.host }}
+      SECRET_KEY: ${{ parameters.django_secret_key }}
+      POSTGRES_DB: ${{ services.db.environment.POSTGRES_DB }}
+      POSTGRES_USER: ${{ services.db.environment.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ services.db.environment.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ services.db.interfaces.main.host }}
+      POSTGRES_PORT: ${{ services.db.interfaces.main.port }}
+    debug:
+      command: |
+        sh -c '
+          python manage.py migrate --noinput
+          python manage.py runserver 0.0.0.0:${{ services.web.interfaces.main.port }}
+        '
+      environment:
+        ALLOWED_HOST: '*'
+        DEBUG: 'True'
+      volumes:
+        code:
+          mount_path: /code
+          host_path: .
+
+interfaces:
+  web: ${{ services.web.interfaces.main.url }}
