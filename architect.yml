@@ -1,0 +1,7 @@
+name: django
+description: |
+  Example component that includes a django frontend and a wsgi backend.
+homepage: https://github.com/architect-templates/django
+keywords:
+  - django
+  - wsgi
