@@ -1,9 +1,8 @@
-# Byte-compiled / optimized / DLL files
+Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-000*_initial.py
-static/admin/
+
 # C extensions
 *.so
 

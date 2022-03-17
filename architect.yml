@@ -19,9 +19,10 @@ services:
       context: .
     command: |
       sh -c '
+        python manage.py makemigrations
         python manage.py collectstatic --noinput
         python manage.py migrate --noinput
-        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2 --static-map /static=/code/static
+        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2 --static-map /static=/src/main/app/static
       '
     interfaces:
       main: 8000
@@ -37,6 +38,8 @@ services:
     debug:
       command: |
         sh -c '
+          python manage.py makemigrations
+          python manage.py collectstatic --noinput
           python manage.py migrate --noinput
           python manage.py runserver 0.0.0.0:${{ services.web.interfaces.main.port }}
         '
@@ -44,9 +47,8 @@ services:
         ALLOWED_HOST: '*'
         DEBUG: 'True'
       volumes:
-        code:
-          mount_path: /code
+        web:
+          mount_path: /usr/src/app
           host_path: .
-
 interfaces:
   web: ${{ services.web.interfaces.main.url }}
