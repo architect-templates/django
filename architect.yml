@@ -27,7 +27,6 @@ services:
     interfaces:
       main: 8000
     environment:
-      DEBUG: 'False'
       ALLOWED_HOST: .${{ ingresses.web.host }}
       SECRET_KEY: ${{ parameters.django_secret_key }}
       POSTGRES_DB: ${{ services.db.environment.POSTGRES_DB }}
@@ -35,7 +34,7 @@ services:
       POSTGRES_PASSWORD: ${{ services.db.environment.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ services.db.interfaces.main.host }}
       POSTGRES_PORT: ${{ services.db.interfaces.main.port }}
-    debug:
+    ${{ if architect.environment == 'local' }}:
       command: |
         sh -c '
           python manage.py makemigrations
