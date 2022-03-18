@@ -4,6 +4,12 @@ parameters:
     default: warning-override-for-production
   postgres_password:
     default: warning-override-for-production
+  django_admin_email:
+    default: noreply@architect.io
+  django_admin_username:
+    default: username
+  django_admin_password:
+    default: password
 
 services:
   db:
@@ -34,12 +40,16 @@ services:
       POSTGRES_PASSWORD: ${{ services.db.environment.POSTGRES_PASSWORD }}
       POSTGRES_HOST: ${{ services.db.interfaces.main.host }}
       POSTGRES_PORT: ${{ services.db.interfaces.main.port }}
+      DJANGO_SUPERUSER_USERNAME: ${{ parameters.django_admin_username }}
+      DJANGO_SUPERUSER_EMAIL: ${{ parameters.django_admin_email }}
+      DJANGO_SUPERUSER_PASSWORD: ${{ parameters.django_admin_password }}
     ${{ if architect.environment == 'local' }}:
       command: |
         sh -c '
           python manage.py makemigrations
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
+          python manage.py createsuperuser --noinput
           python manage.py runserver 0.0.0.0:${{ services.web.interfaces.main.port }}
         '
       environment:
