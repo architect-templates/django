@@ -7,7 +7,7 @@ parameters:
   django_admin_email:
     default: noreply@architect.io
   django_admin_username:
-    default: username
+    default: admin
   django_admin_password:
     default: password
 
@@ -20,9 +20,6 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${{ parameters.postgres_password }}
-      DJANGO_SUPERUSER_USERNAME: ${{ parameters.django_admin_username }}
-      DJANGO_SUPERUSER_EMAIL: ${{ parameters.django_admin_email }}
-      DJANGO_SUPERUSER_PASSWORD: ${{ parameters.django_admin_password }}
   web:
     build:
       context: .
@@ -63,5 +60,9 @@ services:
         web:
           mount_path: /usr/src/app
           host_path: .
+
 interfaces:
-  web: ${{ services.web.interfaces.main.url }}
+  web:
+    url: ${{ services.web.interfaces.main.url }}
+    ingress:
+      subdomain: app
