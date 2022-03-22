@@ -43,15 +43,3 @@ parameters:
   django_admin_password:
     default: password
 ```
-
-## Deploying to the cloud
-
-Want to try deploying this to a cloud environment? Architect's got you covered there too! Just click the button below to deploy it to a sample Kubernetes cluster powered by Architect Cloud:
-
-[![Deploy Button](https://docs.architect.io/deploy-button.svg)](https://cloud.architect.io/examples/components/django/deploy?tag=latest&interface=http%3Ahttp)
-
-Alternatively, if you're already familiar with Architect and have your own environment registered, you can use the command below instead:
-
-```sh
-$ architect deploy examples/django:latest -a <account-name> -e <environment-name> -i http:http
-```
