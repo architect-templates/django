@@ -1,5 +1,5 @@
 name: django
-parameters:
+secrets:
   django_secret_key:
     default: warning-override-for-production
   postgres_password:
