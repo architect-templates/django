@@ -30,7 +30,7 @@ $ architect link .
 $ architect dev examples/django -e local
 ```
 
-Once the deploy has completed, you can reach your new service by going to http://web.arc.localhost/.
+Once the deploy has completed, you can reach your new service by going to http://app.arc.localhost/.
 
 Default values of `username` and `password` have been set for the `/admin` page. To access or change the default admin user credentials, modify the parameters on the top of the `architect.yml` file.
 
