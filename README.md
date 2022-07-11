@@ -20,26 +20,26 @@ Architect component specs are declarative, so it can be run locally or remotely 
 
 ```sh
 # Clone the repository and navigate to this directory
-$ git clone https://github.com/architect-team/architect-cli.git
-$ cd ./architect-cli/examples/django
+$ git clone https://github.com/architect-templates/django.git
+$ cd ./django
 
 # Register the component to the local registry
 $ architect link .
 
 # Deploy using the dev command
-$ architect dev examples/django -e local
+$ architect dev .
 ```
 
 Once the deploy has completed, you can reach your new service by going to http://app.arc.localhost/.
 
-Default values of `username` and `password` have been set for the `/admin` page. To access or change the default admin user credentials, modify the parameters on the top of the `architect.yml` file.
+Default values of `admin` and `password` have been set for the `/admin` page. To access or change the default admin user credentials, modify the parameters on the top of the `architect.yml` file.
 
 ```yaml
 parameters:
   django_admin_email:
     default: noreply@architect.io
   django_admin_username:
-    default: username
+    default: admin
   django_admin_password:
     default: password
 ```
