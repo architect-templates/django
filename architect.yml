@@ -38,7 +38,7 @@ services:
       interval: 30s
       failure_threshold: 3
     environment:
-      ALLOWED_HOST: '*'
+      ALLOWED_HOST: .${{ ingresses.web.host }}
       SECRET_KEY: ${{ secrets.django_secret_key }}
       POSTGRES_DB: ${{ services.db.environment.POSTGRES_DB }}
       POSTGRES_USER: ${{ services.db.environment.POSTGRES_USER }}
@@ -58,6 +58,7 @@ services:
           python manage.py runserver 0.0.0.0:${{ services.web.interfaces.main.port }}
         '
       environment:
+        ALLOWED_HOST: '*'
         DEBUG: 'True'
       volumes:
         web:
