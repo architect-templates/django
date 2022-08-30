@@ -34,7 +34,7 @@ $ architect link .
 $ architect dev .
 ```
 
-Once the deploy has completed, you can reach your new service by going to http://app.arc.localhost/.
+Once the deploy has completed, you can reach your new service by going to https://app.localhost.architect.sh/.
 
 Default values of `admin` and `password` have been set for the `/admin` page. To access or change the default admin user credentials, modify the parameters on the top of the `architect.yml` file.
 
