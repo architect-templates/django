@@ -28,6 +28,8 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '0.0.0.0', os.environ.get('ALLOWED_HOST', '')]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
