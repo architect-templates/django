@@ -10,17 +10,31 @@ secrets:
     default: admin
   django_admin_password:
     default: password
+  db_user:
+    description: Root user to assign to the component's DB
+    default: architect
+  db_pass:
+    description: Root password to assign to the component's DB
+    default: secret
+  db_name:
+    description: Name of the DB the component will store content in
+    default: api-db
+  db_port:
+    description: Port for the db
+    default: 5432
 
 services:
-  db:
-    image: postgres
-    interfaces:
-      main: 5432
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${{ secrets.postgres_password }}
-  web:
+  api-db:
+      image: postgres:12
+      interfaces:
+        database:
+          port: ${{ secrets.db_port }}
+          protocol: postgresql
+      environment:
+        POSTGRES_USER: ${{ secrets.db_user }}
+        POSTGRES_PASSWORD: ${{ secrets.db_pass }}
+        POSTGRES_DB: ${{ secrets.db_name }}
+  api:
     build:
       context: .
     command: |
@@ -38,35 +52,31 @@ services:
       interval: 30s
       failure_threshold: 3
     environment:
-      ALLOWED_HOST: .${{ ingresses.web.host }}
+      ALLOWED_HOST: .${{ ingresses.api.host }}
       SECRET_KEY: ${{ secrets.django_secret_key }}
-      POSTGRES_DB: ${{ services.db.environment.POSTGRES_DB }}
-      POSTGRES_USER: ${{ services.db.environment.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ services.db.environment.POSTGRES_PASSWORD }}
-      POSTGRES_HOST: ${{ services.db.interfaces.main.host }}
-      POSTGRES_PORT: ${{ services.db.interfaces.main.port }}
-      DJANGO_SUPERUSER_USERNAME: ${{ secrets.django_admin_username }}
-      DJANGO_SUPERUSER_EMAIL: ${{ secrets.django_admin_email }}
-      DJANGO_SUPERUSER_PASSWORD: ${{ secrets.django_admin_password }}
+      POSTGRES_DB: ${{ services.api-db.environment.POSTGRES_DB }}
+      POSTGRES_USER: ${{ services.api-db.environment.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ services.api-db.environment.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ services.api-db.interfaces.database.host }}
+      POSTGRES_PORT: ${{ services.api-db.interfaces.database.port }}
     debug:
       command: |
         sh -c '
           python manage.py makemigrations
           python manage.py collectstatic --noinput
           python manage.py migrate --noinput
-          python manage.py createsuperuser --noinput
           python manage.py runserver 0.0.0.0:8000
         '
       environment:
         ALLOWED_HOST: '*'
         DEBUG: 'True'
       volumes:
-        web:
-          mount_path: /usr/src/app
+        api:
           host_path: .
+          mount_path: /usr/src/app
 
 interfaces:
-  web:
-    url: ${{ services.web.interfaces.main.url }}
+  api:
+    url: ${{ services.api.interfaces.main.url }}
     ingress:
       subdomain: app
