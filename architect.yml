@@ -79,4 +79,4 @@ interfaces:
   api:
     url: ${{ services.api.interfaces.main.url }}
     ingress:
-      subdomain: app
+      subdomain: api
