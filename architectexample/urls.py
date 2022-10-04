@@ -19,4 +19,5 @@ from django.urls import include, path
 urlpatterns = [
   path('', movie_views.home, name='home'),
   path('movies/', include('movies.urls')),
+  path('items', movie_views.home, name='home')
 ]
