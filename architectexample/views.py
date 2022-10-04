@@ -1,6 +1,6 @@
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 def home(request):
-  return HttpResponse("<H1>Architect Movie App</H1>")
+  return JsonResponse({'foo':'bar'})

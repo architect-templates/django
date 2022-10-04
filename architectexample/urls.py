@@ -16,9 +16,7 @@ Including another URLconf
 from movies import views as movie_views
 from django.urls import include, path
 
-from . import views
-
 urlpatterns = [
-  path('', movie_views.BaseView.as_view(), name='home'),
+  path('', movie_views.home, name='home'),
   path('movies/', include('movies.urls')),
 ]
