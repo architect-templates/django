@@ -15,7 +15,7 @@
 It is extremely common to run a REST API with a backend database as a standalone service so that it can be consumed by
 multiple, disparate applications.
 
-In this example, you'll learn how to capture an API written with [django](https://www.djangoproject.com/) with a [Postgre](https://www.postgresql.org/)
+In this example, you'll learn how to capture an API written with [django](https://www.djangoproject.com/) with a [Postgres](https://www.postgresql.org/)
 database backend in an Architect Component to enable automated deployments, networking and network security for your application - wherever it gets deployed.
 
 In the `architect.yml` file for this project, we describe this API as two deployable services. However, we also
@@ -59,7 +59,7 @@ $ architect dev architect.yml
 Want to try deploying this to a cloud environment? Architect's got you covered there, too! It only takes a minute to
 [sign up for a free account](https://cloud.architect.io/signup).
 
-You can then [deploy the component](https://docs.architect.io/getting-started/introduction/#deploy-to-the-cloud) using the command below from the `flask` directory. Note that “example-environment” is the free environment that is created with your Architect account.
+You can then [deploy the component](https://docs.architect.io/getting-started/introduction/#deploy-to-the-cloud) using the command below from the `django` directory. Note that “example-environment” is the free environment that is created with your Architect account.
 
 The `<account-name>` is the name you used when you created your account in Architect Cloud. Use "example-environment" for
 the `<environment-name>` to deploy to the free environment that is created when you register with Architect.

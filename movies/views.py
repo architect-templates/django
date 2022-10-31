@@ -12,7 +12,7 @@ class BaseView(View):
   def post(self, request):
     # Data Cleanse
     name = request.POST['formName']
-    rating = request.POST['forRating']
+    rating = request.POST['formRating']
 
     err = error_check(name, rating)
     if err:

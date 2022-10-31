@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 
 def home(request):
-  return HttpResponse("<H1>Architect Movie App</H1>")
+  return HttpResponse("<h1>Architect Movie App</h1>")
