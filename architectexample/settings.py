@@ -32,6 +32,10 @@ ALLOWED_HOSTS = ['localhost', '0.0.0.0', 'https://app.localhost.architect.sh', o
 
 CSRF_TRUSTED_ORIGINS = ['https://*.localhost.architect.sh/','https://*.127.0.0.1']
 
+USE_X_FORWARDED_HOST = True
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -70,6 +74,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
+  'whitenoise.middleware.WhiteNoiseMiddleware',
   'django.contrib.sessions.middleware.SessionMiddleware',
   'django.middleware.common.CommonMiddleware',
   'django.middleware.csrf.CsrfViewMiddleware',

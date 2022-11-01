@@ -40,10 +40,9 @@ services:
     command: |
       sh -c '
         python manage.py makemigrations
-        python manage.py collectstatic --noinput
         python manage.py migrate --noinput
         python manage.py createsuperuser --noinput
-        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2 --static-map /static=/src/main/app/static
+        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2
       '
     interfaces:
       main: 8000
