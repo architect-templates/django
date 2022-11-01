@@ -2,16 +2,23 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
 <html lang="en">
-    <title>Favorite Movies</title>
+    <title>Architect - Django app</title>
     <div class="container">
+        <!-- <h1>Uncomment me to see hot reloading in action!</h1> -->
         {% block header %}{% endblock %}
-
-        <h1 className="header" align="center">
-            Favorite Movies
-        </h1>  
-        
         {% block nextsteps %}{% endblock %}
-        {% block user_input %}{% endblock %}
-        {% block user_table %}{% endblock %}
+
+        <!-- 
+            The blocks below enable a small application below the "Next Steps" card
+            which allows you to add favorite movies with a rating - the data
+            is sent to a database which was deployed along with the django application
+            as a dependency.
+
+            To learn more about dependencies, check out:
+            https://docs.architect.io/components/dependencies/
+        -->
+
+        <!-- {% block user_input %}{% endblock %} -->
+        <!-- {% block user_table %}{% endblock %}  -->
     </div>
 </html>

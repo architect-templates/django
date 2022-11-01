@@ -18,13 +18,13 @@ secrets:
     default: secret
   db_name:
     description: Name of the DB the component will store content in
-    default: api-db
+    default: app-db
   db_port:
     description: Port for the db
     default: 5432
 
 services:
-  api-db:
+  app-db:
       image: postgres:12
       interfaces:
         database:
@@ -34,7 +34,7 @@ services:
         POSTGRES_USER: ${{ secrets.db_user }}
         POSTGRES_PASSWORD: ${{ secrets.db_pass }}
         POSTGRES_DB: ${{ secrets.db_name }}
-  api:
+  app:
     build:
       context: .
     command: |
@@ -52,13 +52,13 @@ services:
       interval: 30s
       failure_threshold: 3
     environment:
-      ALLOWED_HOST: .${{ ingresses.api.host }}
+      ALLOWED_HOST: .${{ ingresses.app.host }}
       SECRET_KEY: ${{ secrets.django_secret_key }}
-      POSTGRES_DB: ${{ services.api-db.environment.POSTGRES_DB }}
-      POSTGRES_USER: ${{ services.api-db.environment.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ services.api-db.environment.POSTGRES_PASSWORD }}
-      POSTGRES_HOST: ${{ services.api-db.interfaces.database.host }}
-      POSTGRES_PORT: ${{ services.api-db.interfaces.database.port }}
+      POSTGRES_DB: ${{ services.app-db.environment.POSTGRES_DB }}
+      POSTGRES_USER: ${{ services.app-db.environment.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ services.app-db.environment.POSTGRES_PASSWORD }}
+      POSTGRES_HOST: ${{ services.app-db.interfaces.database.host }}
+      POSTGRES_PORT: ${{ services.app-db.interfaces.database.port }}
     debug:
       command: |
         sh -c '
@@ -71,12 +71,12 @@ services:
         ALLOWED_HOST: '*'
         DEBUG: 'True'
       volumes:
-        api:
+        app:
           host_path: .
           mount_path: /usr/src/app
 
 interfaces:
-  api:
-    url: ${{ services.api.interfaces.main.url }}
+  app:
+    url: ${{ services.app.interfaces.main.url }}
     ingress:
       subdomain: app

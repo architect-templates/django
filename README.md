@@ -15,10 +15,10 @@
 It is extremely common to run a REST API with a backend database as a standalone service so that it can be consumed by
 multiple, disparate applications.
 
-In this example, you'll learn how to capture an API written with [django](https://www.djangoproject.com/) with a [Postgres](https://www.postgresql.org/)
-database backend in an Architect Component to enable automated deployments, networking and network security for your application - wherever it gets deployed.
+In this example, you'll learn how to capture an app written with [django](https://www.djangoproject.com/) with a [Postgres](https://www.postgresql.org/)
+database backend as a [dependency](https://docs.architect.io/components/dependencies/) using Architect to enable automated deployments, networking and network security for your application - wherever it gets deployed.
 
-In the `architect.yml` file for this project, we describe this API as two deployable services. However, we also
+In the `architect.yml` file for this project, we describe this app as two deployable services. However, we also
 leverage Architect's [service discovery](//docs.architect.io/components/service-discovery) features to populate environment
 secrets by reference. This not only allows us to automatically connect the services to each other, but it also allows
 Architect to build strict network policies to whitelist the traffic between these services. Now we won't have any work ahead
@@ -26,7 +26,7 @@ of us to promote this stack from local dev all the way through to production!
 
 [Learn more about the architect.yml file](//docs.architect.io/configuration)
 
-## Using the API
+## Using the app and API
 This API implements basic CRUD functionality for a simple `Items` schema consisting of a `name` and a `rating` between 1 and 5.
 You could use it to gather data about anything you want to rate, from your favorite restaurants, movies, and more!
 
@@ -38,6 +38,8 @@ You could use it to gather data about anything you want to rate, from your favor
     "rating": "integer"
   }
 ```
+
+In the Django app under `django/templates/base.html`, uncomment the `user_input` and `user_table` blocks to interact with the API and Database components of the app.
 ## Running Locally
 The `architect.yml` file is declarative, which allows the Architect Component it describes to be run in any environment,
 from local development all the way to production. Follow these steps to clone this repository and run the application
