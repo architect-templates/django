@@ -35,6 +35,10 @@ services:
         POSTGRES_PASSWORD: ${{ secrets.db_pass }}
         POSTGRES_DB: ${{ secrets.db_name }}
   app:
+    depends_on:
+      # We want our app to start up after the db is running so that we can connect to it on startup!
+      # This block contains a list of services we need to start before 'app' starts.
+      - app-db
     build:
       context: .
     command: |
