@@ -27,10 +27,10 @@ of us to promote this stack from local dev all the way through to production!
 [Learn more about the architect.yml file](//docs.architect.io/configuration)
 
 ## Using the app and API
-This API implements basic CRUD functionality for a simple `Items` schema consisting of a `name` and a `rating` between 1 and 5.
+This API implements basic CRUD functionality for a simple `Movies` schema consisting of a `name` and a `rating` between 1 and 5.
 You could use it to gather data about anything you want to rate, from your favorite restaurants, movies, and more!
 
-### The `Items` Schema:
+### The `Movies` Schema:
 
 ```
   {
