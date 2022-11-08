@@ -61,21 +61,6 @@ $ architect dev architect.yml
 Want to try deploying this to a cloud environment? Architect's got you covered there, too! It only takes a minute to
 [sign up for a free account](https://cloud.architect.io/signup).
 
-You can then [deploy the component](https://docs.architect.io/getting-started/introduction/#deploy-to-the-cloud) using the command below from the `django` directory. Note that “example-environment” is the free environment that is created with your Architect account.
-
-The `<account-name>` is the name you used when you created your account in Architect Cloud. Use "example-environment" for
-the `<environment-name>` to deploy to the free environment that is created when you register with Architect.
-
-```sh
-# Deploy to Architect Cloud
-$ architect deploy architect.yml -e example-environment
-```
-
-## Deploying to the Cloud
-
-Want to try deploying this to a cloud environment? Architect's got you covered there, too! It only takes a minute to
-[sign up for a free account](https://cloud.architect.io/signup).
-
 You can then [deploy the application](https://docs.architect.io/getting-started/introduction/#deploy-to-the-cloud) by running the command below. Note that “example-environment” is the free environment that is created with your Architect account.
 
 ```sh
