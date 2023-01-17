@@ -46,9 +46,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-ROOT_URLCONF = 'architectexample.urls'
+ROOT_URLCONF = 'movies.urls'
 
-WSGI_APPLICATION = 'architectexample.wsgi.application'
+WSGI_APPLICATION = 'movies.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

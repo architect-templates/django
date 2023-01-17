@@ -4,12 +4,6 @@ secrets:
     default: warning-override-for-production
   postgres_password:
     default: warning-override-for-production
-  django_admin_email:
-    default: noreply@architect.io
-  django_admin_username:
-    default: admin
-  django_admin_password:
-    default: password
   db_user:
     description: Root user to assign to the component's DB
     default: architect
@@ -46,16 +40,19 @@ services:
         python manage.py makemigrations
         python manage.py migrate --noinput
         python manage.py createsuperuser --noinput
-        uwsgi --http "0.0.0.0:8000" --module architectexample.wsgi:application --master --processes 4 --threads 2
+        uwsgi --http "0.0.0.0:8000" --module movies.wsgi:application --master --processes 4 --threads 2
       '
     interfaces:
-      main: 8000
+      main:
+        port: 8000
+        ingress:
+          subdomain: app
     liveness_probe:
       command: curl --fail 0.0.0.0:8000
       interval: 30s
       failure_threshold: 3
     environment:
-      ALLOWED_HOST: .${{ ingresses.app.host }}
+      ALLOWED_HOST: .${{ services.web.interfaces.main.ingress.host }}
       SECRET_KEY: ${{ secrets.django_secret_key }}
       POSTGRES_DB: ${{ services.app-db.environment.POSTGRES_DB }}
       POSTGRES_USER: ${{ services.app-db.environment.POSTGRES_USER }}
@@ -77,9 +74,3 @@ services:
         app:
           host_path: .
           mount_path: /usr/src/app
-
-interfaces:
-  app:
-    url: ${{ services.app.interfaces.main.url }}
-    ingress:
-      subdomain: app

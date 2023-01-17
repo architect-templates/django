@@ -2,23 +2,25 @@
 <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
 <html lang="en">
-    <title>Architect - Django app</title>
-    <div class="container">
-        <!-- <h1>Uncomment me to see hot reloading in action!</h1> -->
-        {% block header %}{% endblock %}
-        {% block nextsteps %}{% endblock %}
+  <title>Architect - Django app</title>
+  <div class="container">
+    <!-- <h1>Uncomment me to see hot reloading in action!</h1> -->
+    {% block header %}{% endblock %}
+    {% block nextsteps %}{% endblock %}
 
-        <!-- 
-            The blocks below enable a small application below the "Next Steps" card
-            which allows you to add favorite movies with a rating - the data
-            is sent to a database which was deployed along with the django application
-            as a dependency.
+    <!--
+      The blocks below enable a small application below the "Next Steps" card
+      which allows you to add favorite movies with a rating - the data
+      is sent to a database which was deployed along with the django application
+      as a dependency.
 
-            To learn more about dependencies, check out:
-            https://docs.architect.io/components/dependencies/
-        -->
+      To learn more about dependencies, check out:
+      https://docs.architect.io/components/dependencies/
+    -->
 
-        <!-- {% block user_input %}{% endblock %} -->
-        <!-- {% block user_table %}{% endblock %}  -->
-    </div>
+    TODO: leave what's below commented for now, then tell the user to update it in the readme and architect config
+
+    {% block user_input %}{% endblock %}
+    {% block user_table %}{% endblock %}
+  </div>
 </html>
