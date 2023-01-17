@@ -12,17 +12,7 @@
   </p>
 {% endblock %}
 
-
-
-
-
-TODO: update the text below and sync with readme
-
-
-
-
-
-{% block nextsteps %}
+{% block next_steps %}
   <div class="card">
     <div class="card-container">
       <div id="card-header">
@@ -35,8 +25,8 @@ TODO: update the text below and sync with readme
           <li>Check out Hot-reloading</li>
           <ol>
             <li>Go to <kbd class='cmp_input'>django/templates/base.html</kbd> in your project folder and open it.</li>
-            <li>Uncomment line 7 to show the h1 tag, and save the file.</li>
-            <li>Refresh the page to apply the new changes! For more info, checkout out our <a target="_blank" rel="noreferrer" href="https://docs.architect.io/">docs</a>.</li>
+            <li>Uncomment lines 20 and 21 to show two new blocks, and save the file.</li>
+            <li>Refresh the page to show the new changes! For more info, checkout out our <a target="_blank" rel="noreferrer" href="https://docs.architect.io/">docs</a>.</li>
           </ol>
           <br/>
           <li>Deploy your app to the cloud via Architect <b>(Recommended)</b></li>
@@ -51,7 +41,7 @@ TODO: update the text below and sync with readme
   </div>
 {% endblock %}
 
-{% block user_input %}
+{% block movie_input %}
   {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -98,7 +88,7 @@ TODO: update the text below and sync with readme
   </form>
 {% endblock %}
 
-{% block user_table %}
+{% block movie_table %}
   {% if movies %}
     <table class="table table-striped table-bordered">
       <thead>

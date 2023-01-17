@@ -9,7 +9,6 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
 }
 
 body {
@@ -149,7 +148,7 @@ input {
 }
 
 button {
-  background-color: rgb(34, 85, 96); 
+  background-color: rgb(34, 85, 96);
   border: none;
   color: #FFF;
   cursor: pointer;
@@ -161,11 +160,11 @@ button {
   display: inline-block;
   line-height: 1.5;
   font-weight: 400;
-  transition: color .15s 
-    ease-in-out,background-color 
-    .15s ease-in-out,border-color 
-    .15s ease-in-out,box-shadow 
-    .15s ease-in-out;  
+  transition: color .15s
+    ease-in-out,background-color
+    .15s ease-in-out,border-color
+    .15s ease-in-out,box-shadow
+    .15s ease-in-out;
 }
 
 table {
