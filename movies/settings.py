@@ -26,7 +26,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'warning-override-for-production')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0', os.environ.get('ALLOWED_HOST', '')]
+ALLOWED_HOSTS = ['localhost', '0.0.0.0', 'https://app.localhost.architect.sh', os.environ.get('ALLOWED_HOST', '')]
+
+CSRF_TRUSTED_ORIGINS = ['https://*.localhost.architect.sh/','https://*.127.0.0.1']
 
 USE_X_FORWARDED_HOST = True
 
@@ -42,9 +44,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-ROOT_URLCONF = 'architectexample.urls'
+ROOT_URLCONF = 'movies.urls'
 
-WSGI_APPLICATION = 'architectexample.wsgi.application'
+WSGI_APPLICATION = 'movies.wsgi.application'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -60,8 +62,7 @@ DATABASES = {
 }
 
 INSTALLED_APPS = [
-  'polls.apps.PollsConfig',
-  'django.contrib.admin',
+  'movies.apps.MoviesConfig',
   'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
