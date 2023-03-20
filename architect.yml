@@ -25,15 +25,15 @@ secrets:
 # For more info - https://docs.architect.io/components/services/
 services:
   app-db:
-      image: postgres:12
-      interfaces:
-        database:
-          port: ${{ secrets.db_port }}
-          protocol: postgresql
-      environment:
-        POSTGRES_USER: ${{ secrets.db_user }}
-        POSTGRES_PASSWORD: ${{ secrets.db_pass }}
-        POSTGRES_DB: ${{ secrets.db_name }}
+    image: postgres:12
+    interfaces:
+      database:
+        port: ${{ secrets.db_port }}
+        protocol: postgresql
+    environment:
+      POSTGRES_USER: ${{ secrets.db_user }}
+      POSTGRES_PASSWORD: ${{ secrets.db_pass }}
+      POSTGRES_DB: ${{ secrets.db_name }}
   app:
     depends_on:
       # We want our app to start up after the db is running so that we can connect to it on startup!
@@ -44,7 +44,6 @@ services:
       context: .
     command: |
       sh -c '
-        python manage.py makemigrations
         python manage.py migrate --noinput
         python manage.py createsuperuser --noinput
         uwsgi --http "0.0.0.0:8000" --module movies.wsgi:application --master --processes 4 --threads 2
@@ -60,7 +59,7 @@ services:
     # The liveness_probe makes sure the application is healthy - if not, it will re-start the application
     liveness_probe:
       command: curl --fail 0.0.0.0:8000
-      interval: 30s
+      interval: 10s
       failure_threshold: 3
     # Set environment variables for your application here
     environment:
@@ -77,14 +76,12 @@ services:
     debug:
       command: |
         sh -c '
-          python manage.py makemigrations
-          python manage.py collectstatic --noinput
           python manage.py migrate --noinput
           python manage.py runserver 0.0.0.0:8000
         '
       environment:
-        ALLOWED_HOST: '*'
-        DEBUG: 'True'
+        ALLOWED_HOST: "*"
+        DEBUG: "True"
       volumes:
         app:
           host_path: .
