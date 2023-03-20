@@ -1,23 +1,27 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
 <html lang="en">
-  <title>Architect - Django app</title>
-  <div class="container">
-    {% block header %}{% endblock %}
-    {% block next_steps %}{% endblock %}
-
-    <!--
-      The blocks below enable a small application below the "Next Steps" card
-      which allows you to add favorite movies with a rating - the data
-      is sent to a database which was deployed along with the django application
-      as a dependency.
-
-      To learn more about dependencies, check out:
-      https://docs.architect.io/components/dependencies/
-    -->
-
-    <!-- {% block movie_input %}{% endblock %}
-    {% block movie_table %}{% endblock %} -->
-  </div>
+  <head>
+    <title>Django App</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link rel="icon" href="/static/favicon.ico" />
+  </head>
+  <body>
+    <div class="container">
+      <p align="center" class="logo">
+        <a href="//architect.io" target="blank">
+          <img
+            src="https://cdn.architect.io/logo/horizontal.png"
+            width="320"
+            alt="Architect Logo"
+          />
+        </a>
+      </p>
+      {% block body %}{% endblock %}
+    </div>
+  </body>
 </html>

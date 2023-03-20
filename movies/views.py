@@ -18,8 +18,8 @@ class HomeView(generic.ListView):
 
   def post(self, request):
     # Data Cleanse
-    name = request.POST['movie_name']
-    rating = request.POST['movie_rating']
+    name = request.POST['name']
+    rating = request.POST['rating']
 
     err = error_check(name, rating)
     if err:
