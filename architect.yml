@@ -74,6 +74,8 @@ services:
     #   application while running `architect dev`. For more info, see -
     #   https://docs.architect.io/components/local-configuration/#hot-reloading
     debug:
+      liveness_probe:
+        initial_delay: 10s
       command: |
         sh -c '
           python manage.py migrate --noinput
