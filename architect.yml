@@ -34,6 +34,10 @@ services:
       POSTGRES_USER: ${{ secrets.db_user }}
       POSTGRES_PASSWORD: ${{ secrets.db_pass }}
       POSTGRES_DB: ${{ secrets.db_name }}
+    liveness_probe:
+      command: pg_isready -d ${{ secrets.db_name }}
+      interval: 10s
+      failure_threshold: 3
   app:
     depends_on:
       # We want our app to start up after the db is running so that we can connect to it on startup!
@@ -75,7 +79,7 @@ services:
     #   https://docs.architect.io/components/local-configuration/#hot-reloading
     debug:
       liveness_probe:
-        initial_delay: 10s
+        initial_delay: 15s
       command: |
         sh -c '
           python manage.py migrate --noinput
